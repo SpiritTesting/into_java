@@ -1,0 +1,10 @@
+1. 	Ich habe vergessen, in der Klasse Kontakt die Methoden hashCode() und equals() zu generieren. Hole das bitte nach.
+2. 	Die Adresse ist zu kurz geraten. Es fehlen Felder für Hausnummer und Ort. Lege die Felder an und binde sie in das Adressbuch ein.
+3. 	Strassen und Personennamen bestehen oft aus mehr als einem Wort. Das ist mit der derzeitigen Verarbeitung in Command aber nicht 
+	möglich. Schöner wäre es, wenn das Kommando von den Parametern durch ein Leerzeichen, die Parameter untereinander aber durch ein 
+	Komma getrennt wären. 
+4. 	An einigen Stellen in der Befehlsverarbeitung haben sich mögliche Fehler eingeschlichen, zum Beispiel wenn kein Kontakt gewählt 
+	ist, aber eine Adresse hinzugefügt werden soll. Finde die Probleme und löse sie. Gib zunächst einfach eine Fehlermeldung aus und 
+	ignoriere den Befehl.
+	
+	ich lege wieder eine mögliche Lösung in das Unterpackage 'solutions'
