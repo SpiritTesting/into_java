@@ -37,9 +37,9 @@ public class AdresseTest {
 		// Verfügung, der durchaus eine MainMethode besitzt und als Argument(e) den oder die auszuführenden
 		// Testklassen erwartet.
 		// Wir navigieren also in den 'bin' Ordner und führen aus:
-		// java -cp .;..\lib\hamcrest-core-1.3.jar;..\lib\junit-4.12.jar org.junit.runner.JUnitCore com.spirittesting.training.intojava.level3.AdresseTest
+		// java -cp .;..\level3\lib\hamcrest-core-1.3.jar;..\level3\lib\junit-4.12.jar org.junit.runner.JUnitCore com.spirittesting.training.intojava.level3.AdresseTest
 		// (in der git-Konsole müssen die ';'-Zeichen im Classpath escaped werden, dort sieht es dann so aus:
-		// java -cp .\;../lib/hamcrest-core-1.3.jar\;../lib/junit-4.12.jar org.junit.runner.JUnitCore com.spirittesting.training.intojava.level3.AdresseTest
+		// java -cp .\;../level3/lib/hamcrest-core-1.3.jar\;../level3/lib/junit-4.12.jar org.junit.runner.JUnitCore com.spirittesting.training.intojava.level3.AdresseTest
 		
 		assertEquals(id, adresse.getId());
 		assertNull(adresse.getStrasse());
