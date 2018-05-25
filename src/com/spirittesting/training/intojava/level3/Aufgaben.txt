@@ -1,0 +1,10 @@
+1.	Vervollständige die Testklasse KontaktbuchTest.java
+2.	Erstelle eine Testklasse KontaktTest.java
+
+Leseempfehlung:
+
+	Vogella, Unit Testing with JUnit, http://www.vogella.com/tutorials/JUnit/article.html
+	JUnit, JUnit4, https://junit.org/junit4/
+	
+Hinweis: 	JUnit 5 ist seit einiger Zeit auf dem Markt, wird aber in den von uns eingesetzten Frameworks nicht benutzt. Daher behandeln wir es hier nicht. 
+			Unter https://junit.org/junit5 kannst Du Dich aber sehr gern mit den Unterschieden und neuen Möglichkeiten beschäftigen!
