@@ -1,8 +1,6 @@
-package com.spirittesting.training.intojava.level1;
+package com.spirittesting.training.intojava.level1.solution;
 /*
- * Alle Klassen sollten eine Package-Deklaration besitzen. Die Package-Deklaration soll dem Ordnerpfad entsprechen, in dem die Klasse abgelegt ist. Root-Ebene ist hier der Ordner 'level1'.
- * Darunter finden wir die Ordnerstruktur 'com', 'spirittesting', 'training', 'intojava' und schließlich 'level1'. Die Strukturierung in Packages dient unter anderem dazu, die Sichtbarkeit
- * von Klassen, Feldern und Methoden zu steuern.  
+ * Musterlösung für Level 1
  */
 
 /**
@@ -17,14 +15,14 @@ class DemoKlasse {
 	 * keine Kurzschreibweise für Getter und Setter - beide müssen als vollständige
 	 * Methoden ausgeschrieben werden.
 	 */
-	String einFeld;
+	private String einFeld = "<nicht belegt>";
 
 	/**
 	 * Eine Klasse darf beliebig viele Konstruktoren enthalten. Jeder Konstruktor
 	 * muss jedoch eine einzigartige Liste von Parametern besitzen.
 	 */
-	DemoKlasse() {
-		// Initialisierung der Klasse ist hier nicht notwendig
+	DemoKlasse(String einFeld) {
+		if (einFeld != null) setEinFeld(einFeld);
 	}
 
 	/** Trivialer Getter für einFeld */
@@ -43,50 +41,62 @@ class DemoKlasse {
 	 */
 	public static void main(String[] args) {
 
-		// wir definieren eine Variable
-		String einFeld = "<nicht belegt>";
-		// falls dem Programm Parameter mitgegeben wurden, überschreiben wir die
-		// Variable mit dem ersten Parameter
-		if (args.length > 0) {
-			einFeld = args[0];
-		}
+		// Der Ternäroperator: if condition ? then : else
+		DemoKlasse demoKlasse = new DemoKlasse(args.length > 0 ? args[0] : null);
 
-		// Wir initialisieren eine neue Instanz der DemoKlasse.
-		DemoKlasse demoKlasse = new DemoKlasse();
-
-		// Über den Setter der Instanz wird das Feld mit der Variable belegt
-		demoKlasse.setEinFeld(einFeld);
-
-		// Auslesen des Feldes und Ausgabe in die Kommandozeile
 		System.out.println("EinFeld: " + demoKlasse.getEinFeld());
 
 	}
 	
 	/*
-	 * #### Aufgaben ####
+	 * #### Antworten ####
 	 * 
-	 * 1. Öffne ein Terminal und navigiere in das Wurzelverzeichnis der Anwendung. In diesem liegen u.a. die Unterordner 'level1' und 'bin'. 'level1' ist hier sichtbar und enthält den Quellcode. 'bin' wird von Eclipse (oder den meisten anderen IDEs) 
-	 *    automatisch erstellt und beinhaltet den kompilierten Code. Wechsle in das Unterverzeichnis 'bin'. 
-	 *    Um eine Klasse auszuführen, übergeben wir den vollqualifizierten Klassennamen und ggf. Parameter an den Befehl 'java'.
-	 *    a) Welche Ausgabe erwartest Du, wenn Du 'java com.spirittesting.training.intojava.level1.DemoKlasse' eingibst und startest?
-	 *    b) Welche Ausgabe erwartest Du, wenn Du 'java com.spirittesting.training.intojava.level1.DemoKlasse HalloWelt' eingibst und startest?
-	 *    c) Welche Ausgabe erwartest Du, wenn Du 'java com.spirittesting.training.intojava.level1.DemoKlasse HalloWelt FooBar' eingibst und startest?
+	 * 1. a) Welche Ausgabe erwartest Du, wenn Du 'java com.spirittesting.training.intojava.level1.DemoKlasse' eingibst und startest?						--> EinFeld: <nicht belegt>
+	 *    b) Welche Ausgabe erwartest Du, wenn Du 'java com.spirittesting.training.intojava.level1.DemoKlasse HalloWelt' eingibst und startest?				--> EinFeld: HalloWelt
+	 *    c) Welche Ausgabe erwartest Du, wenn Du 'java com.spirittesting.training.intojava.level1.DemoKlasse HalloWelt FooBar' eingibst und startest?		--> EinFeld: HalloWelt
 	 *    
 	 * 2. Die Klasse ist zu umständlich. Wir möchten das Feld bereits beim Konstruktoraufruf setzen und so die Zeile 'demoKlasse.setEinFeld(einFeld);' einsparen. Baue die Klasse entsprechend um. Prüfe, dass die Ausgaben sich nicht geändert haben.
 	 * 
+	 * 	  --> Der Konstruktor lautet nun: DemoKlasse(String einFeld) { setEinFeld(einFeld); }
+	 *    --> Die MainMethode lautet nun: 
+	       public static void main(String[] args) {
+
+				// wir definieren eine Variable
+				String einFeld = "<nicht belegt>";				
+				// falls dem Programm Parameter mitgegeben wurden, überschreiben wir die
+				// Variable mit dem ersten Parameter
+				if (args.length > 0) {
+					einFeld = args[0];
+				}
+		
+				// Wir initialisieren eine neue Instanz der DemoKlasse.
+				DemoKlasse demoKlasse = new DemoKlasse(einFeld);
+		
+				// Auslesen des Feldes und Ausgabe in die Kommandozeile
+				System.out.println("EinFeld: " + demoKlasse.getEinFeld());
+		
+			}
+	  
 	 * 3. Felder sollten nur über ihre Getter / Setter Methoden angesprochen werden können. Von wo kann das Feld 'einFeld' direkt manipuliert werden?
 	 * 	  a) Nur innerhalb der Klasse DemoKlasse
 	 *    b) Von allen Klassen innerhalb des Packages com.spirittesting.training.intojava.level1
 	 *    c) Von allen Klassen
 	 *    d) Von allen Klassen innerhalb des Packages com.spirittesting.training.intojava.level1 sowie von allen Klassen, die von DemoKlasse abgeleitet sind, unabhängig von ihrem Package.
-	 *    e) Was ändert sich, wenn wir die Klasse als 'public' deklarieren, also: public class DemoKlasse {     ?
+	 *    
+	 *    --> b
+	 *    
+	 *    e) --> nichts. Um erbenden Klassen den Zugriff zu erlauben, muss das Feld die Sichtbarkeit 'protected' erhalten.
 	 *    
 	 * 4. Schränke die Sichtbarkeit von des Feldes einFeld so ein, dass es nur innerhalb der Klasse sichtbar ist.
 	 * 
+	 * 	  --> private String einFeld; 
+	 * 
 	 * 5. Der Rückfallwert '<nicht belegt>' sollte nicht von außen eingegeben werden. Die Klasse sollte selbst dafür sorgen, dass ihre Felder initialisiert sind. Baue sie entsprechend um.
 	 * 
-	 * Eine mögliche Lösung ist im Unterpackage 'solution' abgelegt.
+	 *    --> private String einFeld = "<nicht belegt>"; // das Feld wird vorinitialisiert
+	 *    --> DemoKlasse(String einFeld) { if (einFeld != null) setEinFeld(einFeld); } // Konstruktor sichern, um nicht doch wieder ein 'null' übergeben zu bekommen.
+	 * 
+	 * Bonusfrage: Wann und wie kann das Feld einFeld jetzt doch noch 'null' werden?
 	 */
-	
 }
 

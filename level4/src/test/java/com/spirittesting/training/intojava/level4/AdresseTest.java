@@ -1,0 +1,167 @@
+package com.spirittesting.training.intojava.level4;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
+
+import org.junit.Test;
+
+public class AdresseTest {
+
+	/* hier oben lege ich mir ein paar Konstanten an, um später sicher dieselben Strings zu verwenden */
+	private static final String id = "#42";
+	private static final String strasse = "Mannheimer Straße";
+	private static final String hausnummer = "123a";
+	private static final String postleitzahl = "90402";
+	private static final String ort = "Strunzenöd (Oberbayern)";
+	private static final String toString = "Adresse [id=#42, strasse=Mannheimer Straße, hausnummer=123a, postleitzahl=90402, ort=Strunzenöd (Oberbayern)]";
+	
+	@Test
+	/**
+	 * Testet den Konstruktor Adresse(String id)
+	 * 
+	 * Wir wollen hier prüfen, ob das Objekt im Normalfall so initialisiert wurde, wie wir es erwarten. Unsere Erwartung
+	 * ist einfach: Das Feld 'id' ist mit dem übergebenen Wert belegt, alle anderen Felder sind null.
+	 */
+	public void testAdresseString() {
+		// Wir erzeugen uns ein Testobjekt, indem wir den entsprechenden Konstruktor benutzen
+		Adresse adresse = new Adresse(id);
+		
+		// Mit 'assertions' (Feststellungen) prüfen wir dann die einzelnen Felder.
+		// Assertions stammen aus der Klasse org.junit.Assert. Die ist nicht Teil der 
+		// JDK, sondern kommt als Bibliothek daher.
+		// In Eclipse müssen wir im Package Explorer den Ordner 'lib' öffnen und dann jeweils auf 'junit-4.12.jar' und 
+		// 'hamcrest-core-1.3.jar' rechtsklicken, 'BuildPath' auswählen und schließlich 'add to Buildpath'. 
+		// Aus der Kommandozeile heraus ist der Start etwas komplizierter. Zunächst mal besitzt der Test ja gar 
+		// keine Main-Methode. Glücklicherweise stellt die JUnit Bibliothek einen sogenannten TestRunner zur 
+		// Verfügung, der durchaus eine MainMethode besitzt und als Argument(e) den oder die auszuführenden
+		// Testklassen erwartet.
+		// Wir navigieren also in den 'bin' Ordner und führen aus:
+		// java -cp .;..\level3\lib\hamcrest-core-1.3.jar;..\level3\lib\junit-4.12.jar org.junit.runner.JUnitCore com.spirittesting.training.intojava.level3.AdresseTest
+		// (in der git-Konsole müssen die ';'-Zeichen im Classpath escaped werden, dort sieht es dann so aus:
+		// java -cp .\;../level3/lib/hamcrest-core-1.3.jar\;../level3/lib/junit-4.12.jar org.junit.runner.JUnitCore com.spirittesting.training.intojava.level3.AdresseTest
+		
+		assertEquals(id, adresse.getId());
+		assertNull(adresse.getStrasse());
+		assertNull(adresse.getHausnummer());
+		assertNull(adresse.getPostleitzahl());
+		assertNull(adresse.getOrt());
+		
+	}
+
+	@Test
+	/**
+	 * Testet den Konstruktor Adresse(String id, String strasse, String hausnummer, String postleitzahl, String ort)
+	 */
+	public void testAdresseStringStringStringStringString() {
+		Adresse adresse = new Adresse (id, strasse, hausnummer, postleitzahl, ort);
+		assertEquals(id, adresse.getId());
+		assertEquals(strasse, adresse.getStrasse());
+		assertEquals(hausnummer, adresse.getHausnummer());
+		assertEquals(postleitzahl, adresse.getPostleitzahl());
+		assertEquals(ort, adresse.getOrt());
+	}
+
+	@Test
+	/** 
+	 * Tests für primitive Getter sind relativ wertlos. Interessant werden sie, sobald ein Getter Seiteneffekte hat 
+	 * (z.B. wird der Wert durch das abholen erst erzeugt) oder eine weitere Verarbeitung (z.B. gib nie null zurück,
+	 * sondern wirf einen Fehler)
+	 */
+	public void testGetStrasse() {
+		Adresse adresse = new Adresse(id, strasse, hausnummer, postleitzahl, ort);
+		assertEquals(strasse, adresse.getStrasse());
+	}
+
+	@Test
+	/**
+	 * Für Setter gilt natürlich dasselbe. Sonderbehandlungen sollten dringend geprüft werden. Nimmt der Setter aber
+	 * nur einen Parameter und überschreibt damit ein Feld, testen wir an der Stelle nichts - außer das Java funktioniert.
+	 */
+	public void testSetStrasse() {
+		Adresse adresse = new Adresse(id, null, hausnummer, postleitzahl, ort);
+		
+		adresse.setStrasse(strasse);
+		assertEquals(strasse, adresse.getStrasse());		
+	}
+
+	@Test
+	public void testGetPostleitzahl() {
+		Adresse adresse = new Adresse(id, strasse, hausnummer, postleitzahl, ort);
+		assertEquals(postleitzahl, adresse.getPostleitzahl());
+	}
+
+	@Test
+	public void testSetPostleitzahl() {
+		Adresse adresse = new Adresse(id, strasse, hausnummer, null, ort);
+		
+		adresse.setPostleitzahl(postleitzahl);
+		assertEquals(postleitzahl, adresse.getPostleitzahl());
+	}
+
+	@Test
+	public void testGetId() {
+		Adresse adresse = new Adresse(id);
+		assertEquals(id, adresse.getId());
+	}
+
+	@Test
+	/**
+	 * Autogenerierte Methoden, also Boilerplate-Code, müssen in der Regel auch nicht intensiv getestet werden.
+	 * Hier könnte aber zum Beispiel geprüft werden, ob bei einer Erweiterung der Klasse um neue Felder diese
+	 * auch in equals(), hashCode() und toString() aufgenommen wurden.
+	 */
+	public void testEqualsObject() {
+		Adresse vergleichsobjekt = new Adresse(id, strasse, hausnummer, postleitzahl, ort);
+		Adresse adresse = new Adresse(id); // id identisch, alle anderen weichen ab
+		assertNotEquals(vergleichsobjekt, adresse);
+		
+		adresse.setStrasse(strasse); // noch immer Abweichungen
+		assertNotEquals(vergleichsobjekt, adresse);
+		
+		adresse.setHausnummer(hausnummer); // noch immer Abweichungen
+		assertNotEquals(vergleichsobjekt, adresse);
+		
+		adresse.setPostleitzahl(postleitzahl); // noch immer Abweichungen
+		assertNotEquals(vergleichsobjekt, adresse);
+		
+		adresse.setOrt(ort); // jetzt sind alle Felder identisch, also sollten die Objekte auch gleich sein
+		assertEquals(vergleichsobjekt, adresse);
+		
+		adresse.setStrasse(null); // das hätte aber auch funktioniert, wenn nur auf 'ort' geprüft wird. Also schließen wir den Fall auch noch aus. 
+		assertNotEquals(vergleichsobjekt, adresse);
+	}
+
+	@Test
+	public void testHashCode() {
+		Adresse adresse = new Adresse(id);
+		int hash1 = adresse.hashCode();
+		
+		adresse.setStrasse(strasse);
+		int hash2 = adresse.hashCode();
+		assertNotEquals(hash1, hash2);
+		
+		adresse.setHausnummer(hausnummer);
+		int hash3 = adresse.hashCode();
+		assertNotEquals(hash2, hash3);
+		
+		adresse.setPostleitzahl(postleitzahl);
+		int hash4 = adresse.hashCode();
+		assertNotEquals(hash3, hash4);
+		
+		adresse.setOrt(ort);
+		int hash5 = adresse.hashCode();
+		assertNotEquals(hash4, hash5);
+		
+		// und was, wenn nur die ID abweicht?
+		Adresse adresse2 = new Adresse("asdföal");
+		assertNotEquals(adresse.hashCode(), adresse2.hashCode());
+	}
+	
+	@Test
+	public void testToString() {
+		Adresse adresse = new Adresse(id, strasse, hausnummer, postleitzahl, ort);
+		assertEquals(toString, adresse.toString());
+	}
+
+}
