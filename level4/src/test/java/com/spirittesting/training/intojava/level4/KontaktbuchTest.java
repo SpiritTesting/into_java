@@ -1,38 +1,36 @@
 package com.spirittesting.training.intojava.level4;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
-import com.spirittesting.training.intojava.level4.Kontaktbuch.Ausgabe;
+import static org.junit.Assert.*;
 
 public class KontaktbuchTest {
 
 	/*
-	 * Um die Klasse Kontaktbuch testfähig zu machen, mussten wir sie etwas umbauen. Die einzelnen Methoden sind jetzt nicht
-	 * mehr selbst für die Ausgaben zuständig. Stattdessen geben sie jeweils ein (oder mehrere) Instanzen einer neu erstellten
-	 * Klasse zurück, die dann in der Main-Methode in Ausgaben umgewandelt werden können.
+	 * Um die Klasse Kontaktbuch testfï¿½hig zu machen, mussten wir sie etwas umbauen. Die einzelnen Methoden sind jetzt nicht
+	 * mehr selbst fï¿½r die Ausgaben zustï¿½ndig. Stattdessen geben sie jeweils ein (oder mehrere) Instanzen einer neu erstellten
+	 * Klasse zurï¿½ck, die dann in der Main-Methode in Ausgaben umgewandelt werden kï¿½nnen.
 	 * 
-	 * Die Testfälle hier sind etwas komplizierter, da wir jeweils einen komplexen Zustand im Konaktbuch setzen und prüfen müssen.
-	 * Das heißt auch, dass wir die jeweiligen Testkandidaten - also die Methoden im Kontaktbuch - mit mehreren Testfällen
+	 * Die Testfï¿½lle hier sind etwas komplizierter, da wir jeweils einen komplexen Zustand im Konaktbuch setzen und prï¿½fen mï¿½ssen.
+	 * Das heiï¿½t auch, dass wir die jeweiligen Testkandidaten - also die Methoden im Kontaktbuch - mit mehreren Testfï¿½llen
 	 * je Kandidat abdecken sollten. 
 	 * 
-	 * Innerhalb dieser Testklasse wird jede Methode als Test erkannt und ausgeführt, die die folgenden Kriterien erfüllt:
+	 * Innerhalb dieser Testklasse wird jede Methode als Test erkannt und ausgefï¿½hrt, die die folgenden Kriterien erfï¿½llt:
 	 * - Annotation @Test
 	 * - Sichtbarkeit public
-	 * - Rückgabewert void
+	 * - Rï¿½ckgabewert void
 	 * - keine Argumente
 	 * 
-	 * Der Name der Methode ist dabei gleichgültig, dient uns aber zur Differenzierung, was wir eigentlich prüfen wollen.
+	 * Der Name der Methode ist dabei gleichgï¿½ltig, dient uns aber zur Differenzierung, was wir eigentlich prï¿½fen wollen.
 	 */
 	
 	private static final String name = "Hannes Kabeltod";
 	
 	/**
 	 * Testfall:
-	 * Ausgehend von einem leeren Kontaktbuch fügen wir einen Kontakt hinzu.
+	 * Ausgehend von einem leeren Kontaktbuch fï¿½gen wir einen Kontakt hinzu.
 	 * Wir erwarten, dass danach genau ein Kontakt vorliegt.
-	 * Wir erwarten, dass dieser Kontakt den übergebenen Namen besitzt. 
+	 * Wir erwarten, dass dieser Kontakt den ï¿½bergebenen Namen besitzt. 
 	 */
 	@Test
 	public void testAddKontakt() {
@@ -46,13 +44,13 @@ public class KontaktbuchTest {
 	
 	/**
 	 * Testfall:
-	 * Ausgehend von einem gefüllten Kontaktbuch fügen wir einen Kontakt hinzu.
-	 * Wir erwarten, dass die Anzahl der Kontakte sich um 1 erhöht. 
+	 * Ausgehend von einem gefï¿½llten Kontaktbuch fï¿½gen wir einen Kontakt hinzu.
+	 * Wir erwarten, dass die Anzahl der Kontakte sich um 1 erhï¿½ht. 
 	 */
 	@Test
 	public void testAddKontakt_prefilled() {
 		Kontaktbuch buch = new Kontaktbuch();
-		buch.addKontakt("Willi Wühlkelle");
+		buch.addKontakt("Willi Wï¿½hlkelle");
 		buch.addKontakt("Heinrich Gewinnsucht");
 		int preSize = buch.getKontakte().size();
 		
@@ -69,8 +67,8 @@ public class KontaktbuchTest {
 	public void testShowSelectedContact_keinGewaehlterKontakt() {
 		Kontaktbuch buch = new Kontaktbuch();
 		Ausgabe ausgabe = buch.showSelectedContact();
-		assertEquals("Gewählter Kontakt", ausgabe.getTitel());
-		assertEquals("<kein Kontakt gewählt>", ausgabe.getInhalt());
+		assertEquals("Gewï¿½hlter Kontakt", ausgabe.getTitel());
+		assertEquals("<kein Kontakt gewï¿½hlt>", ausgabe.getInhalt());
 	}
 
 	@Test

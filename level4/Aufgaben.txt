@@ -1,0 +1,39 @@
+In Kapitel 3 haben wir gesehen, dass UnitTests und das Einbinden von Programmbibliotheken einigen Konfigurationsaufwand erzeugen und außerdem den Programmaufruf sehr sperrig machen. Schon mit zwei Bibliotheken (JUnit und das dafür benötigte Hamcrest) müssen wir uns Gedanken machen: Da die Aufrufzeile lang und komplex ist, liegt es nahe dafür ein Startscript anzulegen. Was passiert, wenn die Bibliotheken in einer neuen Version herauskommen? Wie finde ich das heraus? Wie tausche ich die Versionen in meinem Programm aus? Wo überall muss ich die neuen Versionen hinterlegen? Was passiert, wenn ich nicht eine Bibliothek nutze, sondern Dutzende, wobei wieder jede davon Abhängigkeiten zu anderen Bibliotheken haben kann, die wiederum Abhängigkeiten... usw.
+Was tue ich, wenn sich diese Abhängigkeiten widersprechen? 
+
+Die Antwort lautet, wie so oft in der objektorierten Programmierung: Ich delegiere das Problem an jemanden, der sich damit auskennt. Derjenige ist hier Maven.
+
+Maven ist ein Hilfsprogramm, dass den Buildprozess steuert und Abhängigkeiten verwaltet. In Kapitel 4 habe ich den Quellcode aus Kapitel 3 in eine Maven-Struktur überführt. Damit wir das Programm auch durch Maven starten lassen können, musste ein kleines graphisches Frontend her - die Klasse Display.
+
+Die Änderungen im Einzelnen:
+
+pom.xml:	Maven wird über diese POMs gesteuert. Die Datei legt für das Programm (oder die Bibliothek) eine eindeutige Bezeichnung fest bestehend aus:
+			groupId - um zusammengehörige Programme zu gruppieren. Kann z.B. auf Unternehmens- oder Projektebene geschehen
+			artifactId - Der Name genau dieses Programms oder Programmteils (wir sprechen da von Artefakten)
+			version - dadurch werden verschiedene Entwicklungszustände eines Artefakts unterschieden
+		Außerdem werden hier die Abhängigkeiten des Artefakts beschrieben (wir hängen nur von JUnit ab. JUnit wiederum hat Hamcrest als Abhängigkeit).
+		Letztzlich können über den <build> Bereich Vorgaben gemacht werden, wie der Quellcode verarbeitet werden soll. Im aktuellen Fall legen wir fest,
+		welche Java-Version wir für den Quellcode nutzen (<source>1.8</source>), auf welcher Java-Version wir mindestens ausführen wollen 
+		(<target>1.8</target>) und dass wir das Programm mit einem einfachen Befehl ausführen können wollen und dann die main-Methode in der Klasse
+		com.spirittesting.training.intojava.level4.Display genutzt werden soll.
+
+Órdnerstruktur:	Maven erwartet eine festgelegte Ordnerstruktur, um seine Arbeit zu erledigen. Der Quelltext des Programms wird im Unterordner src/main/java
+		abgelegt. Etwaig benötigte zusätzliche Dateien (z.B. Bilder, Konfigurationsdateien usw.) landen im Ordner src/main/resources. Testklassen 
+		sollen eigentlich nicht mit in das endgültige Artefakt kommen, daher werden sie auch hier getrennt im Ordner src/test/java abgelegt. 
+		Grundsätzlich gilt: Code im Ordner src/test/java kann den Code in src/main/java sehen, aber nicht umgekehrt. So wird verhindert, dass
+		versehentlich Produktionscode auf Testcode basiert. Letztlich gibt es src/test/resources. Falls für den Test also zusätzliche Ressourcen
+		benötigt werden oder Produktionsressourcen übersteuert werden sollen, gehören die Dateien dort hinein.
+		Der bisher genutzte Ordner /bin wird jetzt nicht mehr benötigt. Maven legt neben dem src Ordner einen Ordner target an. Dort befinden sich alle
+		Kompilate: kompilierte Klassen, Testergebnisse, erzeugte Artefakte usw.
+
+Das war's eigentlich schon. Jetzt stehen uns einige neue Befehle zur Verfügung. Hier die jetzt Wesentlichen, alle auszuführen in dem Ordner, in dem auch die Datei pom.xml liegt:
+		mvn clean	(löscht alle bisher kompilierten Programmteile im Ordner target)
+		mvn test	(führt alle unterhalb von src/test/java abgelegten Unit Tests aus)
+		mvn compile	(kompiliert den Quellcode)
+		mvn package	(erzeugt aus dem Quellcode ein Artefakt als *.jar Datei unter dem Ordner /target)
+		mvn exec:java	(startet das Programm)
+
+		die Befehle lassen sich bequem kombinieren. Um also die neuen Änderungen direkt zu testen und zu sehen genügt ein 
+		mvn clean test compile exec:java --> wenn ein Fenster erscheint, ist der Code kompilierbar, ausführbar und alle Tests sind bestanden.
+
+		Sorge dafür, dass der Befehl funktioniert.
