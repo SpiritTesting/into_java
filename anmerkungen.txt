@@ -1,0 +1,7 @@
+1. Lösungen nicht unmittelbar bereitstellen, sondern erst verzögert.
+2. autogenerierte IDs mit 1 beginnen lassen.
+3. Verschiedene Collections-Beispiele
+4. Angular / JHipster einführen
+5. Git
+6. mvn test und code-coverage / jacoco
+7. Linksammlung: stackoverflow, spring.io guides, hero tutorial

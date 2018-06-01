@@ -3,7 +3,7 @@ package com.spirittesting.training.intojava.level5.bank;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Kunde {
+public class Kunde implements Comparable<Kunde> {
 
     private static final AtomicInteger kundennummerGenerator = new AtomicInteger();
     private final String kundennummer;
@@ -11,7 +11,7 @@ public class Kunde {
     private String name;
 
     public Kunde(String name) {
-        this.kundennummer = "KDNR" + kundennummerGenerator.incrementAndGet();
+        this.kundennummer = String.format("KDNR%04d", kundennummerGenerator.incrementAndGet());
         this.name = name;
     }
 
@@ -55,5 +55,10 @@ public class Kunde {
                 .add("name = " + name)
                 .add("konten = " + konten)
                 .toString();
+    }
+
+    @Override
+    public int compareTo(Kunde o) {
+        return this.kundennummer.compareTo(o.kundennummer);
     }
 }

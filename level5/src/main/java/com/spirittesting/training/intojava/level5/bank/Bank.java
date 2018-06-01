@@ -3,16 +3,17 @@ package com.spirittesting.training.intojava.level5.bank;
 import com.spirittesting.training.intojava.level5.currency.Betrag;
 import com.spirittesting.training.intojava.level5.currency.Währung;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Bank {
 
-    private final Map<String, Kunde> kunden = new HashMap<>();
+    private final Map<String, Kunde> kunden = new TreeMap<>();
     private final Map<String, List<Betrag>> einzahlungen = new HashMap<>();
     private final Map<String, List<Betrag>> auszahlungen = new HashMap<>();
+
+    public List<String> listKunden() {
+        return new ArrayList<>(kunden.keySet());
+    }
 
     public void addKunde(String name) {
         Kunde kunde = new Kunde(name);

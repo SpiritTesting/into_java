@@ -12,6 +12,7 @@ public class Terminal {
     private final JXFrame frame;
     private final JXTextArea display;
     private final JXTextField input;
+    private final JScrollPane scrollPane;
 
     private CommandInterpreter interpreter = new EchoInterpreter(this);
 
@@ -19,6 +20,7 @@ public class Terminal {
         frame = new JXFrame(title, true);
         display = new JXTextArea();
         input = new JXTextField("$ ");
+        scrollPane = new JScrollPane(display);
 
         doLayout();
         input.addActionListener(new ActionListener() {
@@ -32,7 +34,6 @@ public class Terminal {
     }
     
     private void doLayout() {
-        JScrollPane scrollPane = new JScrollPane(display);
         display.setFont(new Font("monospaced", Font.PLAIN, 14));
         frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
         frame.getContentPane().add(input, BorderLayout.SOUTH);
@@ -50,6 +51,8 @@ public class Terminal {
 
     public void print(String text) {
         this.display.append(String.format("%s%n", text));
+        JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
+        verticalScrollBar.setValue(verticalScrollBar.getMaximum());
     }
 
     public void setCommandInterpreter(CommandInterpreter interpreter) {
