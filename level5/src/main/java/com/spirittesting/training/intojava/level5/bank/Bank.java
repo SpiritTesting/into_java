@@ -11,13 +11,42 @@ public class Bank {
     private final Map<String, List<Betrag>> einzahlungen = new HashMap<>();
     private final Map<String, List<Betrag>> auszahlungen = new HashMap<>();
 
+    public Bank() {}
+    public Bank(Set<Kunde> kunden) {
+        for (Kunde kunde: kunden) this.kunden.put(kunde.getKundennummer(), kunde);
+    }
+
     public List<String> listKunden() {
         return new ArrayList<>(kunden.keySet());
     }
 
-    public void addKunde(String name) {
+    public Kunde getKunde(String kundennummer) {
+        return kunden.get(kundennummer);
+    }
+
+    public SortedSet<Konto> getKonten(String kundennummer) {
+        SortedSet<Konto> konten = new TreeSet<>();
+        konten.addAll(getKunde(kundennummer).getKonten());
+        return konten;
+    }
+
+    public SortedSet<Konto> getKonten() {
+        SortedSet<Konto> konten = new TreeSet<>();
+        kunden.values().parallelStream().forEach(kunde -> konten.addAll(getKonten(kunde.getKundennummer())));
+        return konten;
+    }
+
+    public Konto getKonto(String kontonummer) {
+        for (Konto konto : getKonten()) {
+            if (konto.getKontonummer().equals(kontonummer)) return konto;
+        }
+        throw new NoSuchElementException("Konto nicht bekannt");
+    }
+
+    public Kunde addKunde(String name) {
         Kunde kunde = new Kunde(name);
         this.kunden.put(kunde.getKundennummer(), kunde);
+        return kunde;
     }
 
     public void removeKunde(String kundennummer) throws KontoNichtAusgeglichenException {

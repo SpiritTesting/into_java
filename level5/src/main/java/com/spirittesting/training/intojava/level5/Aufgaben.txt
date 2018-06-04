@@ -1,0 +1,26 @@
+Wir modellieren jetzt eine Bank. Die Bank ist recht einfach aufgebaut: Sie pflegt einen Kundenstamm, jeder Kunde kann
+beliebig viele Konten haben und ein Konto kann in einer von drei verschiedenenen Währungen geführt werden.
+
+Kunden können von einem ihrer Konten an ein beliebiges anderes Konto Beträge überweisen, sich selbst einen Betrag
+auszahlen lassen oder einen Betrag einzahlen. Beträge sind dabei an die Währung gebunden, d.h. auf ein in EURO
+geführtes Konto kann ich keine US-Dollar einzahlen oder an ein US-Dollar-Konto überweisen.
+
+Bankangestellte können Kunden anlegen und löschen sowie für einen Kunden ein Konto anlegen oder löschen.
+
+Hinter den Klassen Application und BankCommands verbergen sich ein einfacher Programmstarter (der auch einige erste
+Datensätze anlegt) und ein Kommandointerpreter, damit wir die Anwendung steuern können.
+
+1. Implementiere das Löschen von Kunden und Konten.
+2. Schreibe Unittests zur Applikation. Insbesondere die Geschäftslogik in den Klassen Betrag und Bank sollte ausgiebig geprüft werden!
+3. Die Bank führt zwar interne Listen für alle Ein- und Auszahlungen, kann diese aber nicht in der GUI abbilden. Hilf den
+   Angestellten aus und implementiere die entsprechenden Commands.
+4. Es kommen immer wieder Kunden in die Bank, die die Summe ihrer Ersparnisse in Euro, Dollar oder Pfund wissen möchten.
+   Biete eine entsprechende Funktion an, die über alle Konten des Kunden (nach Währung) summiert.
+5. Durch all diese Verbesserungen wird die Bank erfolgreicher und entschließt sich, auch Devisentausch anzubieten. Dazu
+   möchte der Vorstand über die Oberfläche die Wechselkurse EUR->GBP, EUR->USD, GBP->EUR, GBP->USD, USD->EUR, USD->GBP
+   setzen können. Anschließend soll mithilfe dieses Wechselkurses eine Überweisung auf Konten in anderen Währungen
+   ermöglicht werden. Kommt es bei der Umrechnung zu Beträgen mit mehr als zwei Nachkommastellen, wird abgerundet und
+   die Bank streicht den Kleinbetrag still ein.
+6. Entwerfe ein Konzept für Lastschriftverfahren und binde es ein. Beachte, dass Konten immer gedeckt sein müssen!
+7. Wir wollen den Kunden als neues Konzept Dispositionskredite anbieten. Dazu soll ein Bankangestellter für jedes Konto
+   einen (ggf. unterschiedlichen) Kreditrahmen zur Verfügung stellen können.
