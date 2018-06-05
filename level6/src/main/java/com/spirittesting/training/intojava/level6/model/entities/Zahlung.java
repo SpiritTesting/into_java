@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class Zahlung {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
@@ -54,5 +54,15 @@ public class Zahlung {
         timestamp = LocalDateTime.now();
     }
 
-
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append(zahlungsArt)
+                .append("[")
+                .append("von: " + (von == null ? "<n/a>" : von.getKontonummer()))
+                .append(", nach: " + (nach == null ? "<n/a>" : nach.getKontonummer()))
+                .append(", " + betrag)
+                .append(", timestamp: " + timestamp)
+                .append("]").toString();
+    }
 }

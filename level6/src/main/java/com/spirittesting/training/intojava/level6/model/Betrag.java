@@ -78,7 +78,7 @@ public final class Betrag implements Comparable<Betrag> {
 
     @Override
     public String toString() {
-        return währung.name() + voll + "." + teil;
+        return String.format("%s%d.%02d", währung.name(), voll, teil);
     }
 
     @Override

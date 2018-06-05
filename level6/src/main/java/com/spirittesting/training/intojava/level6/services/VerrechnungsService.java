@@ -25,7 +25,7 @@ public class VerrechnungsService {
             }
             summe = summe.subtrahiere(zahlung.getBetrag());
         }
-        return summe;
+        return summe == null ? new Betrag("EUR0.00") : summe;
     }
 
 }
