@@ -102,7 +102,7 @@ public class KontaktbuchTest {
         buch.addKontakt("Willi W�hlkelle");
         buch.addKontakt("Heinrich Gewinnsucht");
         assertEquals("Willi W�hlkelle", buch.findKontakt("Willi W�hlkelle").getName());
-
+        assertEquals(null, buch.findKontakt("Donald"));
     }
 
     @Test
@@ -134,36 +134,46 @@ public class KontaktbuchTest {
     @Test
     public void testAddAdresse() {
         //arrange
-        Kontaktbuch buch = new Kontaktbuch();
-        Adresse adresse1 = new Adresse(id, strasse,hausnummer,postleitzahl,ort);
-        //Kontakt k = new Kontakt(name);
+        Kontaktbuch buch = new Kontaktbuch(); //ok
         buch.addKontakt(name);
-        selectedKontakt = buch.findKontakt(name);
-        //selectedKontakt2 = buch.findKontakt(null);
-        Kontaktbuch.Ausgabe result = new Kontaktbuch.Ausgabe("a.Adresse hinzugef�gt",adresse1.toString());
-        //Kontaktbuch.Ausgabe fehler = new Kontaktbuch.Ausgabe("Fehler", "Kein Kontakt gewählt");
+        // Kontakt im Kontaktbuch-Objekt auswaehlen
+        buch.selectKontakt(name);
+        //Kontakt keinKontakt= buch.selectKontakt(null);
+        Kontaktbuch.Ausgabe a = new Kontaktbuch.Ausgabe("Fehler", "Kein a.Kontakt gew�hlt");
+        // Vergleichs-Adresse
+        // (String id, String strasse, String hausnummer, String postleitzahl, String ort)
+        Adresse vergleichsAdresse = new Adresse("#0", strasse, hausnummer, postleitzahl, ort);
         //act
-        buch.addKontakt(name);
-        selectedKontakt.addAdresse(adresse1);
-        //selectedKontakt2.addAdresse(adresse1);
+        // String strasse, String hausnummer, String postleitzahl, String ort
+        buch.addAdresse(strasse, hausnummer, postleitzahl, ort); // welche id bekommt die Adresse?
         //assert
-        assertEquals("a.Adresse hinzugef�gt", result.getTitel());
-        assertEquals(adresse1.toString(),result.getInhalt());
-        //assertEquals("Fehler",fehler.getTitel());
-        //assertEquals("Kein Kontakt gewählt",fehler.getInhalt());
+        // assertEquals(vergleichsAdresse,buch.getKontakte().get(0).getAdressen()); // nur ein Kontakt
+        assertTrue(buch.getKontakte().get(0).getAdressen().contains(vergleichsAdresse));
+        //assertTrue(buch.getKontakte().get(1). getAdressen().contains(vergleichsAdresse));
+
+
+
     }
     @Test
     public void testRemoveAdresse() {
-        fail("Not yet implemented");
+        Kontaktbuch buch = new Kontaktbuch(); //ok
+        buch.addKontakt(name);
+        buch.selectKontakt(name);
+        Adresse vergleichsAdresse = new Adresse("#0", strasse, hausnummer, postleitzahl, ort);
+        buch.addAdresse(strasse, hausnummer, postleitzahl, ort);
+        assertTrue(buch.getKontakte().get(0).getAdressen().contains(vergleichsAdresse));
+        buch.removeAdresse("#0");
+        assertFalse(buch.getKontakte().get(0).getAdressen().contains(vergleichsAdresse));
     }
 
     @Test
     public void testPrintHelp() {
         Kontaktbuch buch = new Kontaktbuch();
         List<Kontaktbuch.Ausgabe> ausgaben = buch.printHelp();
-        List<Kontaktbuch.Ausgabe> vergleichsausgaben= new ArrayList<>();
+        //List<Kontaktbuch.Ausgabe> vergleichsausgaben= new ArrayList<>();
+        int anzahlElem = ausgaben.size()-1;
 
-        vergleichsausgaben.add(new Kontaktbuch.Ausgabe("M�gliche Befehle:", ""));
+       /* vergleichsausgaben.add(new Kontaktbuch.Ausgabe("M�gliche Befehle:", ""));
         vergleichsausgaben.add(new Kontaktbuch.Ausgabe("help", " diese Anzeige"));
         vergleichsausgaben.add(new Kontaktbuch.Ausgabe("list", " gibt das gesamte Adressbuch aus"));
         vergleichsausgaben.add(new Kontaktbuch.Ausgabe("add <name>", "Legt neuen a.Kontakt an."));
@@ -172,14 +182,29 @@ public class KontaktbuchTest {
         vergleichsausgaben.add(new Kontaktbuch.Ausgabe("who", "zeigt den zur Bearbeitung gew�hlten a.Kontakt"));
         vergleichsausgaben.add(new Kontaktbuch.Ausgabe("newadd <strasse> <hausnummer> <postleitzahl> <ort>", "f�gt dem gew�hlten a.Kontakt eine a.Adresse hinzu"));
         vergleichsausgaben.add(new Kontaktbuch.Ausgabe("remadd <id>", "entfernt die a.Adresse mit <id> vom gew�hlten a.Kontakt"));
-        vergleichsausgaben.add(new Kontaktbuch.Ausgabe("quit", "Beendet das Programm"));
+        vergleichsausgaben.add(new Kontaktbuch.Ausgabe("quit", "Beendet das Programm"));*/
+
         assertEquals("M�gliche Befehle:",ausgaben.get(0).getTitel());
         assertEquals("",ausgaben.get(0).getInhalt());
-        //int anzahlElemente = vergleichsausgaben.size()-1;
-        int anzahlElem = ausgaben.size()-1;
         assertEquals("quit",ausgaben.get(anzahlElem).getTitel());
         assertEquals("Beendet das Programm",ausgaben.get(anzahlElem).getInhalt());
-        //assertEquals(vergleichsausgaben.toString(),ausgaben.toString());
+        //assertTrue(ausgaben.contains(vergleichsausgaben));
+    }
+    @Test
+    public void listALLContacts(){
+        //arrange
+        Kontaktbuch buch = new Kontaktbuch();
+        Kontakt k = new Kontakt(name);
+        Kontaktbuch.Ausgabe a = new Kontaktbuch.Ausgabe("a.Kontakt:",k.toString());
+
+        buch.addKontakt(name);
+        assertEquals(buch.getKontakte().size() ,buch.listAllContacts().size());
+        //assertEquals(k.toString(),buch.getKontakte());
+        assertEquals(k.toString(),buch.listAllContacts().get(0).getInhalt());
+        //System.out.println(ausgaben.get(0).getInhalt());
     }
 
 }
+
+
+

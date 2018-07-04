@@ -71,9 +71,8 @@ public class KontaktTest {
     @Test
     public void testHashCode() {
         Kontakt k = new Kontakt("K");
-        int hash1 = k.hashCode();
         Kontakt m = new Kontakt("M");
-        int hash2 = m.hashCode();
+
         assertNotEquals(k.hashCode(),m.hashCode());
 
 

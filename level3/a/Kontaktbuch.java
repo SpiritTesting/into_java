@@ -1,9 +1,6 @@
 package a;//package com.spirittesting.training.intojava.level3;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 class Kontaktbuch {
 
@@ -16,7 +13,7 @@ class Kontaktbuch {
     }
 
 
-    private List<Ausgabe> listAllContacts() {
+    public List<Ausgabe> listAllContacts() {
         List<Ausgabe> ausgaben = new ArrayList<>();
         for (Kontakt kontakt : getKontakte()) {
             ausgaben.add(new Ausgabe("a.Kontakt:", kontakt.toString()));
@@ -94,7 +91,9 @@ class Kontaktbuch {
 
     public static void main(String[] args) {
         Kontaktbuch kontaktbuch = new Kontaktbuch();
-
+        //System.out.println("Bitte Befehl eingeben: ");
+        //Scanner myVar = new Scanner(System.in);
+        //Command command = myVar.nextLine();
         while (true) {
             List<Ausgabe> ausgaben = new ArrayList<>();
             try {
