@@ -31,11 +31,13 @@ public class KontaktbuchTest {
     private static final String toStringAdress = "Adresse [id=#1, strasse=#1, hausnummer=Mannheimer Stra�e, postleitzahl=90402, ort=Strunzen�d (Oberbayern)]";
     private static final String testId = "#1";
 
-    private Kontaktbuch kb = new Kontaktbuch();
+    private static Kontaktbuch kb;
+
 
     @Before
     public void setUp() throws Exception {
 
+         kb = new Kontaktbuch();
 
 
     }
@@ -75,6 +77,46 @@ public class KontaktbuchTest {
 
     @Test
     public void testGetKontakte() {
+    }
+    @Test
+    public void testListAllContacts(){
+        // arrange1
+        // nothing to arrange
+
+        // act1
+        boolean resultBoolEmpty   = kb.listAllContacts().isEmpty();
+        System.out.println("Result 'listAllContacts()' 'isEmpty()' true : = " + resultBoolEmpty);
+
+        // assert1
+
+        assertTrue(resultBoolEmpty);
+
+        // arrange2
+
+        kb.addKontakt(name2);
+        kb.addKontakt(name1);
+        kb.addKontakt(name3);
+
+        int anzahlKontakte = 3;
+
+
+
+        // act2
+
+        int resultInt = kb.listAllContacts().size();
+        System.out.println("Result 'listAllContacts' qty: = " + anzahlKontakte);
+
+        boolean resultBoolFilled   = kb.listAllContacts().isEmpty();
+        System.out.println("Result 'listAllContacts()' 'isEmpty()' false : = " + resultBoolFilled);
+
+
+        // assert2
+
+        assertEquals(anzahlKontakte,resultInt);
+        assertFalse(resultBoolFilled);
+
+
+
     }
 
     @Test

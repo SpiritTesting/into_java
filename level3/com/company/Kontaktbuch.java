@@ -25,7 +25,7 @@ class Kontaktbuch {
         return "Kontakte:" + kontakte;
     }
 
-    private List<Ausgabe> listAllContacts() {
+    public List<Ausgabe> listAllContacts() {
         List<Ausgabe> ausgaben = new ArrayList<>();
         for (Kontakt kontakt : getKontakte()) {
             ausgaben.add(new Ausgabe("Kontakt:", kontakt.toString()));
