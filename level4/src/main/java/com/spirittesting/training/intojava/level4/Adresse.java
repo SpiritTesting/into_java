@@ -2,14 +2,15 @@ package com.spirittesting.training.intojava.level4;
 
 class Adresse {
 	
-	private final String id; // Das Schlüsselwort final sorgt dafür, dass das Feld ausschließlich in seiner eigenen Deklaration und im Konstruktor überschrieben werden kann. Dementsprechend fehlt auch der Setter.
+	private final String id; // Das Schlï¿½sselwort final sorgt dafï¿½r, dass das Feld ausschlieï¿½lich in seiner eigenen
+	// Deklaration und im Konstruktor ï¿½berschrieben werden kann. Dementsprechend fehlt auch der Setter.
 	private String strasse;
 	private String hausnummer;
 	private String postleitzahl;
 	private String ort;
 	
 	Adresse(String id) {
-		// wir wollen, dass ID niemals auf <null> gesetzt wird. Falls null übergeben wird, wirft die Klasse einen Fehler.
+		// wir wollen, dass ID niemals auf <null> gesetzt wird. Falls null ï¿½bergeben wird, wirft die Klasse einen Fehler.
 		if (id == null) throw new IllegalArgumentException("Die ID darf nicht <null> sein");
 		this.id = id;
 	}

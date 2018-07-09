@@ -8,10 +8,16 @@ class Kontaktbuch {
 
     private final List<Kontakt> kontakte = new ArrayList<>();
     private Kontakt selectedKontakt = null;
+    private static final String format = "\t%-20s - %s%n";
+
 
     public List<Kontakt> getKontakte() {
         return kontakte;
     }
+
+
+
+    //void print() { System.console().format(format, getTitel(), getInhalt()); }
 
     List<Ausgabe> listAllContacts() {
         List<Ausgabe> ausgaben = new ArrayList<>();
@@ -22,13 +28,13 @@ class Kontaktbuch {
     }
 
     Ausgabe showSelectedContact() {
-        return new Ausgabe("Gewählter Kontakt", selectedKontakt == null ? "<kein Kontakt gewählt>" : selectedKontakt.toString());
+        return new Ausgabe("Gewï¿½hlter Kontakt", selectedKontakt == null ? "<kein Kontakt gewï¿½hlt>" : selectedKontakt.toString());
     }
 
     Ausgabe addKontakt(String name) {
         Kontakt kontakt = new Kontakt(name);
         getKontakte().add(kontakt);
-        return new Ausgabe("Kontakt hinzugefügt", kontakt.toString());
+        return new Ausgabe("Kontakt hinzugefï¿½gt", kontakt.toString());
     }
 
     Kontakt findKontakt(String name) {
@@ -41,27 +47,27 @@ class Kontaktbuch {
     Ausgabe removeKontakt(String name) {
         Kontakt kontakt = findKontakt(name);
         getKontakte().remove(kontakt);
-        return new Ausgabe("Kontakt gelöscht", kontakt.toString());
+        return new Ausgabe("Kontakt gelï¿½scht", kontakt.toString());
     }
 
     Ausgabe selectKontakt(String name) {
         this.selectedKontakt = findKontakt(name);
-        return new Ausgabe("Kontakt gewählt", this.selectedKontakt.toString());
+        return new Ausgabe("Kontakt gewï¿½hlt", this.selectedKontakt.toString());
     }
 
     Ausgabe addAdresse(String strasse, String hausnummer, String postleitzahl, String ort) {
         if (selectedKontakt == null) {
-            return new Ausgabe("Fehler", "Kein Kontakt gewählt");
+            return new Ausgabe("Fehler", "Kein Kontakt gewï¿½hlt");
         }
         String id = "#" + selectedKontakt.getAdressen().size();
         Adresse adresse = new Adresse(id, strasse, hausnummer, postleitzahl, ort);
         selectedKontakt.addAdresse(adresse);
-        return new Ausgabe("Adresse hinzugefügt", adresse.toString());
+        return new Ausgabe("Adresse hinzugefï¿½gt", adresse.toString());
     }
 
     Ausgabe removeAdresse(String id) {
         if (selectedKontakt == null) {
-            return new Ausgabe("Fehler", "Kein Kontakt gewählt");
+            return new Ausgabe("Fehler", "Kein Kontakt gewï¿½hlt");
         }
         Iterator<Adresse> iterator = selectedKontakt.getAdressen().iterator();
         while (iterator.hasNext()) {
@@ -76,15 +82,15 @@ class Kontaktbuch {
 
     List<Ausgabe> printHelp() {
         List<Ausgabe> ausgaben = new ArrayList<>();
-        ausgaben.add(new Ausgabe("Mögliche Befehle:", ""));
+        ausgaben.add(new Ausgabe("Mï¿½gliche Befehle:", ""));
         ausgaben.add(new Ausgabe("help", " diese Anzeige"));
         ausgaben.add(new Ausgabe("list", " gibt das gesamte Adressbuch aus"));
         ausgaben.add(new Ausgabe("add <name>", "Legt neuen Kontakt an."));
-        ausgaben.add(new Ausgabe("rem <name>", "Löscht einen Kontakt."));
-        ausgaben.add(new Ausgabe("sel <name>", "Wählt einen Kontakt zur weiteren Bearbeitung"));
-        ausgaben.add(new Ausgabe("who", "zeigt den zur Bearbeitung gewählten Kontakt"));
-        ausgaben.add(new Ausgabe("newadd <strasse> <hausnummer> <postleitzahl> <ort>", "fügt dem gewählten Kontakt eine Adresse hinzu"));
-        ausgaben.add(new Ausgabe("remadd <id>", "entfernt die Adresse mit <id> vom gewählten Kontakt"));
+        ausgaben.add(new Ausgabe("rem <name>", "Lï¿½scht einen Kontakt."));
+        ausgaben.add(new Ausgabe("sel <name>", "Wï¿½hlt einen Kontakt zur weiteren Bearbeitung"));
+        ausgaben.add(new Ausgabe("who", "zeigt den zur Bearbeitung gewï¿½hlten Kontakt"));
+        ausgaben.add(new Ausgabe("newadd <strasse> <hausnummer> <postleitzahl> <ort>", "fï¿½gt dem gewï¿½hlten Kontakt eine Adresse hinzu"));
+        ausgaben.add(new Ausgabe("remadd <id>", "entfernt die Adresse mit <id> vom gewï¿½hlten Kontakt"));
         ausgaben.add(new Ausgabe("quit", "Beendet das Programm"));
         return ausgaben;
     }
