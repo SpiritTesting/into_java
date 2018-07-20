@@ -15,6 +15,7 @@ public class Konto implements Comparable<Konto> {
     private Betrag betrag;
 
     public Konto(Währung währung) {
+        //format ist hier 8 nullen
         kontonummer = String.format("%08d", kontonummerGenerator.incrementAndGet());
         try {
             this.betrag = new Betrag(0, 0, währung);

@@ -14,7 +14,7 @@ public class Application {
 
     public static void main(String[] args) {
         Set<Kunde> kunden = new HashSet<Kunde>();
-        Kunde kunde = new Kunde("Hannes Kabeltod");
+        Kunde kunde = new Kunde("Dagobert Duck");
         Konto konto = new Konto(Währung.USD);
         konto.setBetrag(new Betrag(120, 51, Währung.USD));
         kunde.getKonten().add(konto);
@@ -23,13 +23,13 @@ public class Application {
         kunde.getKonten().add(konto);
         kunden.add(kunde);
 
-        kunde = new Kunde("Willi Winzig");
+        kunde = new Kunde("Gustav Gans");
         konto = new Konto(Währung.EUR);
         konto.setBetrag(new Betrag(2, 81, Währung.EUR));
         kunde.getKonten().add(konto);
         kunden.add(kunde);
 
-        kunde = new Kunde("Donald Drumpf");
+        kunde = new Kunde("Donald Duck");
         konto = new Konto(Währung.USD);
         konto.setBetrag(new Betrag(227275123, 99, Währung.USD));
         kunde.getKonten().add(konto);

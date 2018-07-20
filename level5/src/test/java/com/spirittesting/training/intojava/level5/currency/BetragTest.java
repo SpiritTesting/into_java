@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class BetragTest {
 
@@ -16,9 +17,9 @@ public class BetragTest {
         Betrag betrag1 = new Betrag(Integer.MAX_VALUE, 0, Währung.USD);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = BetragException.class)
     public void testBetragNegativ() {
-        Betrag betrag = new Betrag(-1, 0, Währung.EUR);
+            Betrag betrag = new Betrag(-1, 0, Währung.EUR);
     }
 
     @Test

@@ -12,4 +12,6 @@ public enum Währung {
         this.name = name;
     }
 
+
 }
+
