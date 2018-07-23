@@ -10,7 +10,7 @@ Bankangestellte können Kunden anlegen und löschen sowie für einen Kunden ein 
 Hinter den Klassen Application und BankCommands verbergen sich ein einfacher Programmstarter (der auch einige erste
 Datensätze anlegt) und ein Kommandointerpreter, damit wir die Anwendung steuern können.
 
-1. Implementiere das Löschen von Kunden und Konten.
+1. Implementiere das Löschen von Kunden und Konten. => PASST
 2. Schreibe Unittests zur Applikation. Insbesondere die Geschäftslogik in den Klassen Betrag und Bank sollte ausgiebig geprüft werden!
 3. Die Bank führt zwar interne Listen für alle Ein- und Auszahlungen, kann diese aber nicht in der GUI abbilden. Hilf den
    Angestellten aus und implementiere die entsprechenden Commands.

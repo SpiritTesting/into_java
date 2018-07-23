@@ -60,15 +60,21 @@ public final class Betrag implements Comparable<Betrag> {
     }
 
     public Betrag addiere(Betrag geldwert) throws BetragException {
-        if (geldwert.getWährung() != währung) throw new BetragException("Geldwechsel nicht möglich");
-        Betrag betrag = (Betrag) geldwert;
-        return new Betrag(voll + betrag.getVoll(), teil + betrag.getTeil(), währung);
+        Betrag summand = geldwert;
+        if (summand.getWährung() != währung) {
+            System.out.println("Geldwechsel: " + geldwert + " in " + summand + " getauscht");
+            summand = geldwert.convertTo(währung);
+        }
+        return new Betrag(voll + summand.getVoll(), teil + summand.getTeil(), währung);
     }
 
     public Betrag subtrahiere(Betrag geldwert) throws BetragException{
-        if (geldwert.getWährung() != währung) throw new BetragException("Geldwechsel nicht möglich");
-        Betrag betrag = (Betrag) geldwert;
-        return new Betrag(voll - betrag.getVoll(), teil - betrag.getTeil(), währung);
+        Betrag summand = geldwert;
+        if (summand.getWährung() != währung) {
+            System.out.println("Geldwechsel: " + geldwert + " in " + summand + " getauscht");
+            summand = geldwert.convertTo(währung);
+        }
+        return new Betrag(voll - summand.getVoll(), teil - summand.getTeil(), währung);
     }
 
     public int getVoll() {
@@ -122,4 +128,11 @@ public final class Betrag implements Comparable<Betrag> {
         return String.format("%s %d.%02d", währung.name(), voll, teil);
     }
 
+    private Betrag convertTo(Währung nach) {
+        double wechselkurs = währung.to(nach);
+        int wert = this.voll * 100 + this.teil;
+        int converted = (int) Math.floor(wert * wechselkurs);
+        Betrag wechselwert = new Betrag(0, converted, nach);
+        return wechselwert;
+    }
 }

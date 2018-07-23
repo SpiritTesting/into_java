@@ -1,5 +1,6 @@
 package com.spirittesting.training.intojava.level5.bank;
 
+import com.spirittesting.training.intojava.level5.KontoBewegung;
 import com.spirittesting.training.intojava.level5.currency.Betrag;
 import com.spirittesting.training.intojava.level5.currency.Währung;
 
@@ -32,7 +33,7 @@ public class Bank {
 
     public SortedSet<Konto> getKonten() {
         SortedSet<Konto> konten = new TreeSet<>();
-        kunden.values().parallelStream().forEach(kunde -> konten.addAll(getKonten(kunde.getKundennummer())));
+        kunden.values().stream().forEach(kunde -> konten.addAll(getKonten(kunde.getKundennummer())));
         return konten;
     }
 
@@ -75,6 +76,10 @@ public class Bank {
         // wir können überweisen
         von.setBetrag(von.getBetrag().subtrahiere(betrag));
         nach.setBetrag(nach.getBetrag().addiere(betrag));
+
+        // Buchhaltung
+        von.addKontoBewegung(betrag, KontoBewegung.Richtung.ABGANG);
+        nach.addKontoBewegung(betrag, KontoBewegung.Richtung.ZUGANG);
     }
 
     public void zahleAus(Kunde kunde, Konto von, Betrag betrag) throws KontostandNichtAusreichendException {
@@ -102,6 +107,9 @@ public class Bank {
 
         // Auszahlung eintragen
         auszahlungen.get(kunde.getKundennummer()).add(betrag);
+
+        // Buchhaltung
+        von.addKontoBewegung(betrag, KontoBewegung.Richtung.ABGANG);
     }
 
     public void zahleEin(Kunde kunde, Konto nach, Betrag betrag) {
@@ -124,6 +132,29 @@ public class Bank {
 
         // Einzahlung eintragen
         einzahlungen.get(kunde.getKundennummer()).add(betrag);
+
+        // Buchhaltung
+        nach.addKontoBewegung(betrag, KontoBewegung.Richtung.ZUGANG);
     }
 
+    public void lastschriftEinzug(String gläubiger, Konto von, Betrag betrag) throws KontostandNichtAusreichendException {
+        // sind alle Parameter gesetzt?
+        if (von == null) throw new IllegalArgumentException("Ausgangskonto darf nicht null sein");
+        if (betrag == null) throw new IllegalArgumentException("Betrag darf nicht null sein");
+        if (gläubiger == null) throw new IllegalArgumentException("Gläubiger darf nicht null sein");
+
+        // ist das Konto eines, auf dass der Kunde zugreifen darf?
+        if (!von.isLastschriftErlaubt(gläubiger)) throw new KeineBerechtigungFürKontoException("Kein Kontozugriff");
+
+        // ist genug Geld auf dem Ausgangskonto vorhanden?
+        if (von.getBetrag().subtrahiere(betrag).compareTo(new Betrag(0, 0, betrag.getWährung())) < 0) {
+            throw new KontostandNichtAusreichendException("Der Betrag steht auf dem Quellkonto nicht zur Verfügung");
+        }
+
+        // wir können auszahlen
+        von.setBetrag(von.getBetrag().subtrahiere(betrag));
+
+        // Buchhaltung
+        von.addKontoBewegung(betrag, KontoBewegung.Richtung.LASTSCHRIFT);
+    }
 }
