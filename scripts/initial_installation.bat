@@ -50,15 +50,8 @@ choco install procexp
 echo "installiere SublimeText..."
 choco install sublimetext3
 
-echo "installiere docker..."
-choco install docker
-choco install docker-compose
-
 echo "installiere slack..."
 choco install slack
-
-echo "installiere PostgreSQL Database Manager..."
-choco install postgresql
 
 echo "installiere eclipse..."
 choco install eclipse
@@ -70,6 +63,8 @@ echo "installiere jhipster..."
 choco install yo
 choco install jhipster
 
+echo "Installiere docker for windows..."
+choco install docker-for-windows
 
 echo "Starte Eclipse-Plugin Installation..."
 echo
