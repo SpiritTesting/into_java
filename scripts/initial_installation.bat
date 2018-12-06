@@ -50,31 +50,12 @@ choco install procexp
 echo "installiere SublimeText..."
 choco install sublimetext3
 
-echo "installiere slack..."
-choco install slack
-
-echo "installiere eclipse..."
-choco install eclipse
-
-echo "installiere postman..."
-choco install postman
-
 echo "installiere jhipster..."
 choco install yo
 choco install jhipster
 
 echo "Installiere docker for windows..."
 choco install docker-for-windows
-
-echo "Starte Eclipse-Plugin Installation..."
-echo
-"%PROGRAMFILES%\Git\bin\sh.exe" --login ./install_eclipse.sh
-echo
-
-echo "Starte Heroku CLI Tool Installation..."
-echo
-"%PROGRAMFILES%\Git\bin\sh.exe" --login ./install_eclipse.sh
-echo
 
 echo "Installation abgeschlossen"
 pause
